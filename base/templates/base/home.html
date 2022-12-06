@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+    <ul>
+        {% for question in questions %}
+            <li><a href="{% url 'question-detail' question.id %}">{{question}}</a></li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock content %}
