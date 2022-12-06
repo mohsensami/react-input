@@ -3,6 +3,9 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.QuestionsView, name='details'),
-    path('question/<int:pk>/', views.QuestionView, name='question-detail'),
+    path('', views.questionsView, name='home'),
+    path('question/<int:pk>/', views.questionView, name='question-detail'),
+    path('create-question/', views.createQuestionView, name='create-question'),
+    path('update-question/<int:pk>/', views.updateQuestionView, name='update-question'),
+    path('delete-question/<int:pk>/', views.deleteQuestionView, name='delete-question'),
 ]
