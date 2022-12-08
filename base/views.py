@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Question, Answer
 from .forms import CreateQuestionForm, MyUserCreationForm
+from django.utils.text import slugify
 
 
 def loginView(request):
@@ -86,6 +87,8 @@ def createQuestionView(request):
     if request.method == 'POST':
         form = CreateQuestionForm(request.POST)
         if form.is_valid():
+            question = form.save(commit=False)
+            question.slug = slugify(form.cleaned_data['name'])
             form.save()
         return redirect('home')
     context = {'form': form}

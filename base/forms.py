@@ -14,5 +14,11 @@ class MyUserCreationForm(UserCreationForm):
 class CreateQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = '__all__'
-        exclude = ['host', 'participants']
+        fields = ['topic', 'name', 'description']
+        # exclude = ['host', 'participants', 'slug']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 's-input js-post-title-field ask-title-field'})
