@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Question
+from .models import Question, Answer
 from .forms import CreateQuestionForm, MyUserCreationForm
 
 
@@ -69,6 +69,14 @@ def questionsView(request):
 def questionView(request, slug):
     question = Question.objects.get(slug=slug)
     context = {'question': question}
+    if request.method == 'POST':
+        body = request.POST.get('body')
+        Answer.objects.create(
+            user = request.user,
+            question = question,
+            body = body
+        )
+        return redirect('question-detail' ,slug = question.slug )
     return render(request, 'base/question_detail.html', context)
 
 
