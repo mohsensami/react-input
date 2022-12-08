@@ -8,8 +8,8 @@ urlpatterns = [
     path('register/', views.registerView, name='register'),
 
     path('', views.questionsView, name='home'),
-    path('question/<int:pk>/', views.questionView, name='question-detail'),
+    path('question/<slug:slug>/', views.questionView, name='question-detail'),
     path('create-question/', views.createQuestionView, name='create-question'),
-    path('update-question/<int:pk>/', views.updateQuestionView, name='update-question'),
-    path('delete-question/<int:pk>/', views.deleteQuestionView, name='delete-question'),
+    path('update-question/<slug:slug>/', views.updateQuestionView, name='update-question'),
+    path('delete-question/<slug:slug>/', views.deleteQuestionView, name='delete-question'),
 ]

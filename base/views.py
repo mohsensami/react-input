@@ -66,8 +66,8 @@ def questionsView(request):
     return render(request, 'base/home.html', context)
 
 
-def questionView(request, pk):
-    question = Question.objects.get(id=pk)
+def questionView(request, slug):
+    question = Question.objects.get(slug=slug)
     context = {'question': question}
     return render(request, 'base/question_detail.html', context)
 
