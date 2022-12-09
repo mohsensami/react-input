@@ -9,6 +9,7 @@
     <title>Stack Overflow</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/stacks.css' %}">
     <link rel="stylesheet" href="{% static 'css/primary.css' %}">
+    {% block style %}{% endblock style %}
 </head>
 <body class="home-page unified-theme">
     {% include 'navbar.html' %}

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Question, Answer
+from .models import Question, Answer, Topic
 from .forms import CreateQuestionForm, MyUserCreationForm
 from django.utils.text import slugify
 
@@ -59,6 +59,13 @@ def registerView(request):
             messages.error(request, 'An error occurred during registration')
 
     return render(request, 'base/login_register.html', {'form': form})
+
+
+def homeView(request):
+    questions = Question.objects.all()
+    topics = Topic.objects.all()
+    context = {'questions': questions, 'topics': topics}
+    return render(request, 'base/home.html', context)
 
 
 def questionsView(request):
