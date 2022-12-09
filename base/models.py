@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=100, unique=True, verbose_name='slug')
 
     def __str__(self):
         return self.name
