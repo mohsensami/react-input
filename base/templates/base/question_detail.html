@@ -31,11 +31,11 @@
                 <div class="d-flex fw-wrap pb8 mb16 bb bc-black-075">
                     <div class="flex--item ws-nowrap mr16 mb8" title="2022-12-08 15:12:56Z">
                         <span class="fc-light mr2">Asked</span>
-                        <time itemprop="dateCreated" datetime="2022-12-08T15:12:56">today</time>
+                        <time itemprop="dateCreated" datetime="2022-12-08T15:12:56">{{question.created}}</time>
                     </div>
                     <div class="flex--item ws-nowrap mr16 mb8">
                         <span class="fc-light mr2">Modified</span>
-                        <a href="?lastactivity" class="s-link s-link__inherit" title="2022-12-08 15:36:49Z">today</a>
+                        <a href="?lastactivity" class="s-link s-link__inherit" title="2022-12-08 15:36:49Z">{{question.updated}}</a>
                     </div>
                     <div class="flex--item ws-nowrap mb8" title="Viewed 8 times">
                         <span class="fc-light mr2">Viewed</span>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div id="mainbar" role="main" aria-label="question and answers">
-                    {{question.description}}
+                    {{question.description|safe}}
 
 
 
@@ -52,13 +52,41 @@
 {% for answer in question.answer_set.all %}
                     <div id="answer-50687396" class="answer js-answer">
                         <div class="post-layout">
-                            <div class="votecell post-layout--left">
-                                lllllll
-                            </div>
+
+
+
+
+                <div class="votecell post-layout--left">
+                    <div class="js-voting-container d-flex jc-center fd-column ai-stretch gs4 fc-black-200" data-post-id="74740814">
+                <button class="js-vote-up-btn flex--item s-btn s-btn__unset c-pointer " data-controller="s-tooltip" data-s-tooltip-placement="right" aria-pressed="false" aria-label="Up vote" data-selected-classes="fc-theme-primary" data-unselected-classes="" aria-describedby="--stacks-s-tooltip-rzorhnk8">
+                    <svg aria-hidden="true" class="svg-icon iconArrowUpLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 25h32L18 9 2 25Z"></path></svg>
+                </button><div id="--stacks-s-tooltip-rzorhnk8" class="s-popover s-popover__tooltip wmx2" role="tooltip">This question shows research effort; it is useful and clear<div class="s-popover--arrow"></div></div>
+                <div class="js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title" itemprop="upvoteCount" data-value="1">
+                    1
+                </div>
+                <button class="js-vote-down-btn flex--item s-btn s-btn__unset c-pointer " data-controller="s-tooltip" data-s-tooltip-placement="right" aria-pressed="false" aria-label="Down vote" data-selected-classes="fc-theme-primary" data-unselected-classes="" aria-describedby="--stacks-s-tooltip-81nlqu8r">
+                    <svg aria-hidden="true" class="svg-icon iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 11h32L18 27 2 11Z"></path></svg>
+                </button><div id="--stacks-s-tooltip-81nlqu8r" class="s-popover s-popover__tooltip" role="tooltip">This question does not show any research effort; it is unclear or not useful<div class="s-popover--arrow"></div></div>
+
+        <button class="js-saves-btn s-btn s-btn__unset c-pointer py4" id="saves-btn-74740814" data-controller="s-tooltip" data-s-tooltip-placement="right" data-s-popover-placement="" aria-pressed="false" data-post-id="74740814" data-post-type-id="1" data-user-privilege-for-post-click="4" aria-controls="" data-s-popover-auto-show="false" aria-describedby="--stacks-s-tooltip-3kirfz5i">
+            <svg aria-hidden="true" class="fc-theme-primary-500 js-saves-btn-selected d-none svg-icon iconBookmark" width="18" height="18" viewBox="0 0 18 18"><path d="M3 17V3c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v14l-6-4-6 4Z"></path></svg>
+            <svg aria-hidden="true" class="js-saves-btn-unselected svg-icon iconBookmarkAlt" width="18" height="18" viewBox="0 0 18 18"><path d="m9 10.6 4 2.66V3H5v10.26l4-2.66ZM3 17V3c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v14l-6-4-6 4Z"></path></svg>
+        </button><div id="--stacks-s-tooltip-3kirfz5i" class="s-popover s-popover__tooltip" role="tooltip">Save this question.<div class="s-popover--arrow"></div></div>
+        
+                <a class="js-post-issue flex--item s-btn s-btn__unset c-pointer py6 mx-auto" href="/posts/74740814/timeline" data-shortcut="T" data-ks-title="timeline" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-label="Timeline" aria-describedby="--stacks-s-tooltip-m4r8l84r"><svg aria-hidden="true" class="mln2 mr0 svg-icon iconHistory" width="19" height="18" viewBox="0 0 19 18"><path d="M3 9a8 8 0 1 1 3.73 6.77L8.2 14.3A6 6 0 1 0 5 9l3.01-.01-4 4-4-4h3L3 9Zm7-4h1.01L11 9.36l3.22 2.1-.6.93L10 10V5Z"></path></svg></a><div id="--stacks-s-tooltip-m4r8l84r" class="s-popover s-popover__tooltip" role="tooltip">Show activity on this post.<div class="s-popover--arrow"></div></div>
+        
+        </div>
+    </div>
+
+
+
+
+
+
                             <div class="answercell post-layout--right">
 
                                 <div class="s-prose js-post-body" itemprop="text">
-                                    {{answer.body}}
+                                    {{answer.body|safe}}
                                 </div>
                             </div>
                             <span class="d-none" itemprop="commentCount">1</span>

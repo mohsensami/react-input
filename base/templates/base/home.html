@@ -50,7 +50,7 @@
                         <span class="s-post-summary--stats-item-unit">votes</span>
                     </div>
                     <div class="s-post-summary--stats-item  " title="0 answers">
-                        <span class="s-post-summary--stats-item-number">0</span>
+                        <span class="s-post-summary--stats-item-number">{{question.answer_set.count}}</span>
                         <span class="s-post-summary--stats-item-unit">answers</span>
                     </div>
                     <div class="s-post-summary--stats-item " title="3 views">
@@ -92,19 +92,14 @@
 
                             <div class="s-user-card--info">
                                 <div class="s-user-card--link d-flex gs4">
-                                    <a href="/users/20705018/setra" class="flex--item">setra</a>
+                                    <a href="/users/20705018/setra" class="flex--item">{{question.host}}</a>
                                 </div>
-
-                                <ul class="s-user-card--awards">
-                                    <li class="s-user-card--rep"><span class="todo-no-class-here" title="reputation score " dir="ltr">1</span></li>
-
-                                </ul>
 
 
                             </div>
 
                             <time class="s-user-card--time">
-                                <a href="/questions/74706392/how-to-stop-unwanted-file-changes-when-rebuilding-solution-in-visual-studio" class="s-link s-link__muted">modified <span title="2022-12-06 17:02:45Z" class="relativetime">9 secs ago</span></a>
+                                <a href="" class="s-link s-link__muted">modified <span title="2022-12-06 17:02:45Z" class="relativetime">{{question.updated|timesince}}</span></a>
                             </time>
                         </div>
 
