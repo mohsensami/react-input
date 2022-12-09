@@ -62,7 +62,8 @@ def registerView(request):
 
 
 def homeView(request):
-    questions = Question.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    questions = Question.objects.filter(topic__slug__icontains=q)
     topics = Topic.objects.all()
     context = {'questions': questions, 'topics': topics}
     return render(request, 'base/home.html', context)
