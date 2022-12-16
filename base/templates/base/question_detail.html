@@ -22,7 +22,7 @@
                             {{question.name}}</a>
                     </h1>
                     <div class="ml12 aside-cta flex--item print:d-none sm:ml0 sm:mb12 sm:order-first sm:as-end">
-                        <a href="/questions/ask" class="ws-nowrap s-btn s-btn__primary">
+                        <a href="{% url 'create-question' %}" class="ws-nowrap s-btn s-btn__primary">
                             Ask Question
                         </a>
 
@@ -95,7 +95,7 @@
 {% endfor %}
 
 
-
+                {% if request.user.is_authenticated %}
                     <form method="post">
                         {% csrf_token %}
                         <textarea class="wmd-input s-input bar0 js-post-body-field processed" type="text" name="body" id="wmd-input"></textarea>
@@ -105,6 +105,9 @@
                             </button>
                         </div>
                     </form>
+                {% else %}
+                    <p style="background: #f1f1f1;padding: 24px;">Sign up or log in</p>
+                {% endif %}
 
                 </div>
 
