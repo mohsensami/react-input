@@ -7,8 +7,14 @@ from django.contrib.auth.models import User
 class MyUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        # fields = ['name', 'username', 'email', 'password1', 'password2']
-        fields = '__all__'
+        fields = ['username', 'email', 'password1', 'password2']
+        # fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 's-input js-post-title-field ask-title-field'})
 
 
 class CreateQuestionForm(forms.ModelForm):
