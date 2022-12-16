@@ -97,6 +97,7 @@ def createQuestionView(request):
         if form.is_valid():
             question = form.save(commit=False)
             question.slug = slugify(form.cleaned_data['name'])
+            question.host = request.user
             form.save()
         return redirect('home')
     context = {'form': form}
