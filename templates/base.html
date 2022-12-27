@@ -9,26 +9,25 @@
     <title>Stack Overflow</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/stacks.css' %}">
     <link rel="stylesheet" href="{% static 'css/primary.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     {% block style %}{% endblock style %}
 </head>
 <body class="home-page unified-theme">
     {% include 'navbar.html' %}
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-
-
     <div class="container">
-
-            
+        {% include 'includes/messages.html' %}
+    </div>
     
-            {% block content %}{% endblock content %}
+    
+    <div class="container">
+        
+        
+        
+        
+            {% block content %}
+            
+            {% endblock content %}
     
     
 

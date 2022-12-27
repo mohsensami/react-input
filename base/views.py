@@ -12,8 +12,9 @@ from django.utils.text import slugify
 
 def loginView(request):
     page = 'login'
-    # if request.user.is_authenticated:
-    #     return redirect('home')
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already logged in!', 'warning')
+        return redirect('home')
 
     if request.method == 'POST':
         userlogin = request.POST.get('userlogin').lower()
@@ -45,6 +46,9 @@ def logoutView(request):
 
 
 def registerView(request):
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already logged in!', 'warning')
+        return redirect('home')
     form = MyUserCreationForm()
 
     if request.method == 'POST':
