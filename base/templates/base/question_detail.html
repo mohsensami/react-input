@@ -86,7 +86,7 @@
                             <div class="answercell post-layout--right">
 
                                 <div class="s-prose js-post-body" itemprop="text">
-                                    {{answer.body|linebreaks|safe}}
+                                    {{answer.body|safe}}
                                 </div>
                             </div>
                             <span class="d-none" itemprop="commentCount">1</span>
@@ -96,9 +96,11 @@
 
 
                 {% if request.user.is_authenticated %}
-                    <form method="post">
+                    <form class="row" method="post">
                         {% csrf_token %}
-                        <textarea class="wmd-input s-input bar0 js-post-body-field processed" type="text" name="body" id="wmd-input"></textarea>
+                        {{form.media}}
+                        {{form.as_p}}
+                        <!-- <textarea class="wmd-input s-input bar0 js-post-body-field processed" type="text" name="body" id="wmd-input"></textarea> -->
                         <div class="form-submit clear-both d-flex gsx gs4">
                             <button id="submit-button" class="flex--item s-btn s-btn__primary s-btn__icon" type="submit" tabindex="120" autocomplete="off">
                                 Post Your Answer
@@ -113,90 +115,6 @@
 
 
                 <div id="sidebar" class="show-votes" role="complementary" aria-label="sidebar">
-
-
-
-                    <div class="s-sidebarwidget s-sidebarwidget__yellow s-anchors s-anchors__grayscale mb16" data-tracker="cb=1">
-                        <ul class="d-block p0 m0">
-                            <li class="s-sidebarwidget--header s-sidebarwidget__small-bold-text d-flex fc-black-600 d:fc-black-900 bb bbw1">
-                                The Overflow Blog
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <svg aria-hidden="true" class="va-text-top svg-icon iconPencilSm" width="14" height="14" viewBox="0 0 14 14">
-                                        <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-                                    </svg>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://stackoverflow.blog/2022/12/06/validation-cloud-javelin-blockchain-infrastructure-node-validator/?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;The Overflow Blog&quot;,&quot;https://stackoverflow.blog/2022/12/06/validation-cloud-javelin-blockchain-infrastructure-node-validator/&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 1, position: 0 })">The blockchain tech to build in a crypto winter (Ep. 516)</a>
-                                </div>
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <svg aria-hidden="true" class="va-text-top svg-icon iconPencilSm" width="14" height="14" viewBox="0 0 14 14">
-                                        <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-                                    </svg>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://stackoverflow.blog/2022/12/07/aws-joins-collectives-on-stack-overflow/?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;The Overflow Blog&quot;,&quot;https://stackoverflow.blog/2022/12/07/aws-joins-collectives-on-stack-overflow/&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 1, position: 1 })">AWS joins Collectives™ on Stack Overflow</a>
-                                </div>
-                            </li>
-                            <li class="s-sidebarwidget--header s-sidebarwidget__small-bold-text d-flex fc-black-600 d:fc-black-900 bb bbw1">
-                                Featured on Meta
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://meta.stackexchange.com/questions/384169/help-us-identify-new-roles-for-community-members?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;Featured on Meta&quot;,&quot;https://meta.stackexchange.com/questions/384169/help-us-identify-new-roles-for-community-members&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 3, position: 2 })">Help us identify new roles for community members</a>
-                                </div>
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://meta.stackexchange.com/questions/384406/navigation-and-ui-research-starting-soon?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;Featured on Meta&quot;,&quot;https://meta.stackexchange.com/questions/384406/navigation-and-ui-research-starting-soon&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 3, position: 3 })">Navigation and UI research starting soon</a>
-                                </div>
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <div class="favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://meta.stackoverflow.com/questions/421831/temporary-policy-chatgpt-is-banned?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;Featured on Meta&quot;,&quot;https://meta.stackoverflow.com/questions/421831/temporary-policy-chatgpt-is-banned&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 6, position: 4 })">Temporary policy: ChatGPT is banned</a>
-                                </div>
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <div class="favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://meta.stackoverflow.com/questions/421619/2022-community-moderator-election-results?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;Featured on Meta&quot;,&quot;https://meta.stackoverflow.com/questions/421619/2022-community-moderator-election-results&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 6, position: 5 })">2022 Community Moderator Election Results</a>
-                                </div>
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <div class="favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://meta.stackoverflow.com/questions/421718/help-needed-a-call-for-volunteer-reviewers-for-the-staging-ground-beta-test?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;Featured on Meta&quot;,&quot;https://meta.stackoverflow.com/questions/421718/help-needed-a-call-for-volunteer-reviewers-for-the-staging-ground-beta-test&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 6, position: 6 })">Help needed: a call for volunteer reviewers for the Staging Ground beta test</a>
-                                </div>
-                            </li>
-                            <li class="s-sidebarwidget--header s-sidebarwidget__small-bold-text d-flex fc-black-600 d:fc-black-900 bb bbw1">
-                                Hot Meta Posts
-                            </li>
-                            <li class="s-sidebarwidget--item d-flex px16">
-                                <div class="flex--item1 fl-shrink0">
-                                    <span class="fc-black-500" title="Question score (upvotes - downvotes)">25</span>
-                                </div>
-                                <div class="flex--item wmn0 ow-break-word">
-                                    <a href="https://meta.stackoverflow.com/questions/421896/staging-ground-workflow-canned-comments-revised?cb=1" class="js-gps-track" data-ga="[&quot;community bulletin board&quot;,&quot;Hot Meta Posts&quot;,&quot;https://meta.stackoverflow.com/questions/421896/staging-ground-workflow-canned-comments-revised&quot;,null,null]" data-gps-track="communitybulletin.click({ priority: 7, position: 7 })">Staging Ground Workflow: Canned Comments - Revised</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
 
 
                     <div class="js-zone-container zone-container-sidebar">

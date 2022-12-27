@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Question, Answer, Topic
-from .forms import CreateQuestionForm, MyUserCreationForm
+from .forms import CreateQuestionForm, MyUserCreationForm, AnswerForm
 from django.utils.text import slugify
 
 
@@ -81,7 +81,8 @@ def questionsView(request):
 
 def questionView(request, slug):
     question = Question.objects.get(slug=slug)
-    context = {'question': question}
+    form = AnswerForm()
+    context = {'question': question, 'form':form}
     if request.method == 'POST':
         body = request.POST.get('body')
         Answer.objects.create(

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Question
+from .models import Question, Answer
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -28,3 +28,9 @@ class CreateQuestionForm(forms.ModelForm):
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 's-input js-post-title-field ask-title-field'})
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['body',]
