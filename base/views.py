@@ -9,6 +9,7 @@ from .models import Question, Answer, Topic
 from .forms import CreateQuestionForm, MyUserCreationForm, AnswerForm
 from django.utils.text import slugify
 
+from django.db.models import Count
 
 def loginView(request):
     page = 'login'
@@ -67,7 +68,10 @@ def registerView(request):
 
 def homeView(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
+    tab = request.GET.get('tab') if request.GET.get('tab') != None else ''
     questions = Question.objects.filter(topic__slug__icontains=q)
+    if tab=='hot':
+        questions = Question.objects.all().annotate(num_answer=Count('answer')).order_by('-num_answer')
     # topics = Topic.objects.all()
     context = {'questions': questions}
     return render(request, 'base/home.html', context)
