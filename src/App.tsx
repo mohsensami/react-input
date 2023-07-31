@@ -1,10 +1,3 @@
-# Modal Package
-
-## How to use?
-
-### Example in App.tsx component
-
-```
 import { useState } from "react";
 
 import "./App.css";
@@ -34,5 +27,3 @@ function App() {
 }
 
 export default App;
-
-```
