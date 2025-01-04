@@ -1,19 +1,28 @@
-const express = require('express');
+const fs = require('fs');
 const path = require('path');
-const templateEngine = require('./templateEngine');
 
-const app = express();
+/**
+ * Custom template engine function for Express.js
+ * @param {string} filePath - Full path to the template file
+ * @param {Object} options - Data passed to the template
+ * @param {Function} callback - Callback to return the rendered HTML
+ */
+function renderFile(filePath, options, callback) {
+    // Read the template file
+    fs.readFile(filePath, 'utf8', (err, content) => {
+        if (err) {
+            return callback(err); // Pass the error to Express
+        }
 
-// Set up the custom template engine
-app.engine('tpl', templateEngine.renderFile);
-app.set('views', path.join(__dirname, 'views')); // Directory for templates
-app.set('view engine', 'tpl');
+        // Replace placeholders {{key}} with corresponding values from options
+        const rendered = content.replace(/{{\s*(\w+)\s*}}/g, (match, key) => {
+            return options[key] !== undefined ? options[key] : match; // Default to the placeholder if no value
+        });
 
-// Example route
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Hello World', message: 'Welcome to my custom engine!' });
-});
+        callback(null, rendered); // Return the rendered content
+    });
+}
 
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
-});
+module.exports = {
+    renderFile, // Export the function to be used as the template engine
+};

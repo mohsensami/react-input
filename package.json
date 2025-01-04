@@ -1,20 +1,20 @@
 {
-    "name": "@sami/template-engine",
-    "private" : false,
-    "version": "1.0.0",
+    "name": "@mohsensami/template-engine",
+    "private": false,
+    "version": "1.0.3",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node test.js"
     },
-    "author": "Mohsen Sami",
-    "license": "MIT",
     "description": "A simple template engine for Express.js",
+    "publishConfig": {
+        "access": "public"
+    },
     "keywords": [
         "template-engine",
         "express",
         "view-engine"
     ],
-    "dependencies": {
-        "express": "^4.21.2"
-    }
+    "author": "Mohsen Sami",
+    "license": "MIT"
 }
