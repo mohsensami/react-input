@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
+import "./Input.css"; // 👈 فایل استایل ساده
 
 type CustomInputType = "text" | "number" | "password" | "letters";
 
@@ -41,10 +42,9 @@ const Input: React.FC<InputProps> = ({
     onChange(inputValue);
   };
 
-  // تعیین type واقعی HTML input
   const getInputHTMLType = () => {
     if (type === "password") return "password";
-    return "text"; // همیشه text چون کنترل کامل می‌خواهیم
+    return "text";
   };
 
   const getInputMode = () => {
@@ -53,7 +53,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className={`flex flex-col gap-1 ${className}`}>
+    <div className={`input-wrapper ${className}`}>
       <input
         type={getInputHTMLType()}
         inputMode={getInputMode()}
@@ -61,12 +61,10 @@ const Input: React.FC<InputProps> = ({
         onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
-        className={`border rounded-lg px-3 py-2 text-sm outline-none transition-all ${
-          error || localError ? "border-red-500" : "border-gray-300"
-        } focus:border-blue-500 disabled:bg-gray-100`}
+        className={`input ${error || localError ? "input-error" : ""}`}
       />
       {(error || localError) && (
-        <span className="text-red-500 text-xs">{error || localError}</span>
+        <span className="input-error-text">{error || localError}</span>
       )}
     </div>
   );

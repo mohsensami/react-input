@@ -1,0 +1,33 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.input:focus {
+  border-color: #007bff;
+}
+
+.input:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+
+.input-error {
+  border-color: #e53935 !important;
+}
+
+.input-error-text {
+  color: #e53935;
+  font-size: 12px;
+}
