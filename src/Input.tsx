@@ -1,39 +1,37 @@
 import React, { useState, ChangeEvent } from "react";
 
+type CustomInputType = "text" | "number" | "password" | "letters";
+
 interface InputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  type?: "text" | "number" | "password";
-  onlyNumbers?: boolean;
-  onlyLetters?: boolean;
+  type?: CustomInputType;
   maxLength?: number;
   disabled?: boolean;
   error?: string;
   className?: string;
 }
 
-const Input = ({
+const Input: React.FC<InputProps> = ({
   value,
   onChange,
   placeholder = "",
   type = "text",
-  onlyNumbers = false,
-  onlyLetters = false,
   maxLength,
   disabled = false,
   error,
   className = "",
-}: InputProps) => {
+}) => {
   const [localError, setLocalError] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
 
-    if (onlyNumbers) {
+    if (type === "number") {
       inputValue = inputValue.replace(/[^0-9]/g, "");
-    } else if (onlyLetters) {
-      inputValue = inputValue.replace(/[^a-zA-Zآ-یء ]/g, "");
+    } else if (type === "letters") {
+      inputValue = inputValue.replace(/[^a-zA-Zآ-یء\s]/g, "");
     }
 
     if (maxLength && inputValue.length > maxLength) {
@@ -43,10 +41,22 @@ const Input = ({
     onChange(inputValue);
   };
 
+  // تعیین type واقعی HTML input
+  const getInputHTMLType = () => {
+    if (type === "password") return "password";
+    return "text"; // همیشه text چون کنترل کامل می‌خواهیم
+  };
+
+  const getInputMode = () => {
+    if (type === "number") return "numeric";
+    return undefined;
+  };
+
   return (
     <div className={`flex flex-col gap-1 ${className}`}>
       <input
-        type={type}
+        type={getInputHTMLType()}
+        inputMode={getInputMode()}
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
