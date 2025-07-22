@@ -11,6 +11,7 @@ interface InputProps {
   disabled?: boolean;
   error?: string;
   className?: string;
+  formatNumberWithCommas?: boolean; // New optional prop
 }
 
 const Input: React.FC<InputProps> = ({
@@ -22,24 +23,25 @@ const Input: React.FC<InputProps> = ({
   disabled = false,
   error,
   className = "",
+  formatNumberWithCommas = false, // Default to false
 }) => {
   const [localError, setLocalError] = useState<string | null>(null);
   const [displayValue, setDisplayValue] = useState<string>(value);
 
   useEffect(() => {
-    if (type === "number") {
+    if (type === "number" && formatNumberWithCommas) {
       const numericValue = value.replace(/,/g, "");
       if (!isNaN(Number(numericValue))) {
-        setDisplayValue(formatNumberWithCommas(numericValue));
+        setDisplayValue(addCommasToNumber(numericValue));
       } else {
         setDisplayValue(value);
       }
     } else {
       setDisplayValue(value);
     }
-  }, [value, type]);
+  }, [value, type, formatNumberWithCommas]);
 
-  const formatNumberWithCommas = (numStr: string): string => {
+  const addCommasToNumber = (numStr: string): string => {
     if (!numStr) return "";
     return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
@@ -53,14 +55,18 @@ const Input: React.FC<InputProps> = ({
 
       // Apply maxLength to the unformatted value
       if (maxLength && unformattedValue.length > maxLength) {
-        return; // Don't update the value if it exceeds maxLength
+        return;
       }
 
-      // Update the parent component with the unformatted value
+      // Update parent with unformatted value
       onChange(unformattedValue);
 
-      // Update the display value with commas
-      setDisplayValue(formatNumberWithCommas(unformattedValue));
+      // Conditionally format display value
+      setDisplayValue(
+        formatNumberWithCommas
+          ? addCommasToNumber(unformattedValue)
+          : unformattedValue
+      );
       return;
     } else if (type === "letters") {
       inputValue = inputValue.replace(/[^a-zA-Zآ-یء\s]/g, "");
