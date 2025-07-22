@@ -51,16 +51,17 @@ const App = () => {
 
 ## Props
 
-| Prop          | Type                                            | Default      | Description                                                              |
-| ------------- | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------ |
-| `value`       | `string`                                        | **required** | The current value of the input.                                          |
-| `onChange`    | `(value: string) => void`                       | **required** | Callback when the input value changes.                                   |
-| `placeholder` | `string`                                        | `""`         | Placeholder text for the input.                                          |
-| `type`        | `"text" \| "number" \| "password" \| "letters"` | `"text"`     | Input type. `letters` allows only a-z, A-Z, Persian letters, and spaces. |
-| `maxLength`   | `number`                                        | `undefined`  | Maximum number of characters allowed.                                    |
-| `disabled`    | `boolean`                                       | `false`      | Disables the input if true.                                              |
-| `error`       | `string`                                        | `undefined`  | Error message to display below the input.                                |
-| `className`   | `string`                                        | `""`         | Additional CSS class for the input wrapper.                              |
+| Prop                      | Type                                            | Default      | Description                                                              |
+| ------------------------- | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------ |
+| `value`                   | `string`                                        | **required** | The current value of the input.                                          |
+| `onChange`                | `(value: string) => void`                       | **required** | Callback when the input value changes.                                   |
+| `placeholder`             | `string`                                        | `""`         | Placeholder text for the input.                                          |
+| `type`                    | `"text" \| "number" \| "password" \| "letters"` | `"text"`     | Input type. `letters` allows only a-z, A-Z, Persian letters, and spaces. |
+| `maxLength`               | `number`                                        | `undefined`  | Maximum number of characters allowed.                                    |
+| `disabled`                | `boolean`                                       | `false`      | Disables the input if true.                                              |
+| `error`                   | `string`                                        | `undefined`  | Error message to display below the input.                                |
+| `className`               | `string`                                        | `""`         | Additional CSS class for the input wrapper.                              |
+| `formatNumberWithCommas ` | `boolean`                                       | `false`      | Add formatNumberWithCommas if input is number                            |
 
 ## Styling
 
