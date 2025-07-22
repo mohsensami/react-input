@@ -12,12 +12,14 @@ const App = () => {
         value={name}
         onChange={setName}
         placeholder="نام (فقط حروف)"
+        maxLength="4"
       />
       <Input
         type="number"
         value={age}
         onChange={setAge}
         placeholder="سن (فقط عدد)"
+        maxLength="4"
       />
     </div>
   );

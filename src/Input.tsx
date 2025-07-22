@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent } from "react";
-import "./Input.css"; // 👈 فایل استایل ساده
 
 type CustomInputType = "text" | "number" | "password" | "letters";
 
@@ -53,19 +52,17 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className={`input-wrapper ${className}`}>
+    <div>
       <input
+        className={className}
         type={getInputHTMLType()}
         inputMode={getInputMode()}
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
-        className={`input ${error || localError ? "input-error" : ""}`}
       />
-      {(error || localError) && (
-        <span className="input-error-text">{error || localError}</span>
-      )}
+      {(error || localError) && <span>{error || localError}</span>}
     </div>
   );
 };
