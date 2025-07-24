@@ -4,17 +4,13 @@ import Input from "@mohsensami/input";
 const App = () => {
   const [noEnglish, setNoEnglish] = useState("");
   const [number, setNumber] = useState("");
-
-  useEffect(() => {
-    console.log(noEnglish);
-    console.log(number);
-  }, [noEnglish, number]);
+  const [password, setPassword] = useState("");
 
   return (
-    <div className="max-w-md mx-auto p-4 space-y-4">
+    <div>
       <Input
         type="noEnglish"
-        value={name}
+        value={noEnglish}
         onChange={setNoEnglish}
         placeholder="noEnglish"
         maxLength={10}
@@ -24,7 +20,14 @@ const App = () => {
         value={number}
         onChange={setNumber}
         formatNumberWithCommas
-        placeholder="سن (فقط عدد)"
+        placeholder="number"
+        maxLength={8}
+      />
+      <Input
+        type="password"
+        value={password}
+        onChange={setPassword}
+        placeholder="password"
         maxLength={8}
       />
     </div>

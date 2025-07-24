@@ -1,6 +1,20 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 
-type CustomInputType = "number" | "noEnglish";
+type CustomInputType =
+  | "number"
+  | "noEnglish"
+  | "text"
+  | "password"
+  | "email"
+  | "tel"
+  | "search"
+  | "url"
+  | "date"
+  | "datetime-local"
+  | "month"
+  | "time"
+  | "week"
+  | "color";
 
 interface InputProps {
   value: string;
@@ -18,7 +32,7 @@ const Input: React.FC<InputProps> = ({
   value,
   onChange,
   placeholder = "",
-  type = "number",
+  type = "text",
   maxLength,
   disabled = false,
   error,
@@ -45,12 +59,11 @@ const Input: React.FC<InputProps> = ({
     let inputValue = e.target.value;
 
     if (type === "number") {
-      // Only allow digits 0-9
       inputValue = inputValue.replace(/[^0-9]/g, "");
     } else if (type === "noEnglish") {
-      // Remove English letters (a-z, A-Z)
       inputValue = inputValue.replace(/[a-zA-Z]/g, "");
     }
+    // For other types, do not filter
 
     if (maxLength && inputValue.length > maxLength) {
       inputValue = inputValue.slice(0, maxLength);
@@ -65,12 +78,13 @@ const Input: React.FC<InputProps> = ({
   };
 
   const getInputHTMLType = () => {
-    if (type === "number") return "text"; // Use text to allow custom filtering
-    return "text";
+    if (type === "number" || type === "noEnglish") return "text";
+    return type;
   };
 
   const getInputMode = () => {
     if (type === "number") return "numeric";
+    if (type === "tel") return "tel";
     return undefined;
   };
 
