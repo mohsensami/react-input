@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 
-type CustomInputType = "text" | "number" | "password" | "letters";
+type CustomInputType = "number" | "noEnglish";
 
 interface InputProps {
   value: string;
@@ -18,58 +18,29 @@ const Input: React.FC<InputProps> = ({
   value,
   onChange,
   placeholder = "",
-  type = "text",
+  type = "number",
   maxLength,
   disabled = false,
   error,
   className = "",
-  formatNumberWithCommas = false, // Default to false
+  formatNumberWithCommas = false, // Not used anymore, but kept for compatibility
 }) => {
   const [localError, setLocalError] = useState<string | null>(null);
   const [displayValue, setDisplayValue] = useState<string>(value);
 
   useEffect(() => {
-    if (type === "number" && formatNumberWithCommas) {
-      const numericValue = value.replace(/,/g, "");
-      if (!isNaN(Number(numericValue))) {
-        setDisplayValue(addCommasToNumber(numericValue));
-      } else {
-        setDisplayValue(value);
-      }
-    } else {
-      setDisplayValue(value);
-    }
-  }, [value, type, formatNumberWithCommas]);
-
-  const addCommasToNumber = (numStr: string): string => {
-    if (!numStr) return "";
-    return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
+    setDisplayValue(value);
+  }, [value]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
 
     if (type === "number") {
-      // Remove all non-digit characters
-      const unformattedValue = inputValue.replace(/[^0-9]/g, "");
-
-      // Apply maxLength to the unformatted value
-      if (maxLength && unformattedValue.length > maxLength) {
-        return;
-      }
-
-      // Update parent with unformatted value
-      onChange(unformattedValue);
-
-      // Conditionally format display value
-      setDisplayValue(
-        formatNumberWithCommas
-          ? addCommasToNumber(unformattedValue)
-          : unformattedValue
-      );
-      return;
-    } else if (type === "letters") {
-      inputValue = inputValue.replace(/[^a-zA-Zآ-یء\s]/g, "");
+      // Only allow digits 0-9
+      inputValue = inputValue.replace(/[^0-9]/g, "");
+    } else if (type === "noEnglish") {
+      // Remove English letters (a-z, A-Z)
+      inputValue = inputValue.replace(/[a-zA-Z]/g, "");
     }
 
     if (maxLength && inputValue.length > maxLength) {
@@ -81,7 +52,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   const getInputHTMLType = () => {
-    if (type === "password") return "password";
+    if (type === "number") return "text"; // Use text to allow custom filtering
     return "text";
   };
 
@@ -100,6 +71,7 @@ const Input: React.FC<InputProps> = ({
         onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
+        maxLength={maxLength}
       />
       {(error || localError) && <span>{error || localError}</span>}
     </div>
