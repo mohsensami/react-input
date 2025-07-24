@@ -23,6 +23,7 @@ const App = () => {
         type="number"
         value={number}
         onChange={setNumber}
+        formatNumberWithCommas
         placeholder="سن (فقط عدد)"
         maxLength={8}
       />

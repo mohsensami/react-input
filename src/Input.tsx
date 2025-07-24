@@ -23,14 +23,23 @@ const Input: React.FC<InputProps> = ({
   disabled = false,
   error,
   className = "",
-  formatNumberWithCommas = false, // Not used anymore, but kept for compatibility
+  formatNumberWithCommas = false,
 }) => {
   const [localError, setLocalError] = useState<string | null>(null);
   const [displayValue, setDisplayValue] = useState<string>(value);
 
   useEffect(() => {
-    setDisplayValue(value);
-  }, [value]);
+    if (type === "number" && formatNumberWithCommas) {
+      setDisplayValue(addCommasToNumber(value));
+    } else {
+      setDisplayValue(value);
+    }
+  }, [value, type, formatNumberWithCommas]);
+
+  const addCommasToNumber = (numStr: string): string => {
+    if (!numStr) return "";
+    return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
@@ -48,7 +57,11 @@ const Input: React.FC<InputProps> = ({
     }
 
     onChange(inputValue);
-    setDisplayValue(inputValue);
+    if (type === "number" && formatNumberWithCommas) {
+      setDisplayValue(addCommasToNumber(inputValue));
+    } else {
+      setDisplayValue(inputValue);
+    }
   };
 
   const getInputHTMLType = () => {
