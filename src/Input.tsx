@@ -25,7 +25,7 @@ interface InputProps {
   disabled?: boolean;
   error?: string;
   className?: string;
-  formatNumberWithCommas?: boolean; // New optional prop
+  formatNumberWithCommas?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -39,12 +39,12 @@ const Input: React.FC<InputProps> = ({
   className = "",
   formatNumberWithCommas = false,
 }) => {
-  const [localError, setLocalError] = useState<string | null>(null);
-  const [displayValue, setDisplayValue] = useState<string>(value);
+  const [displayValue, setDisplayValue] = useState<string>("");
 
   useEffect(() => {
     if (type === "number" && formatNumberWithCommas) {
-      setDisplayValue(addCommasToNumber(value));
+      const cleanValue = value.toString().replace(/[^0-9]/g, "");
+      setDisplayValue(addCommasToNumber(cleanValue));
     } else {
       setDisplayValue(value);
     }
@@ -56,23 +56,27 @@ const Input: React.FC<InputProps> = ({
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let inputValue = e.target.value;
+    let inputValue = e.target.value.replace(/,/g, "");
 
     if (type === "number") {
       inputValue = inputValue.replace(/[^0-9]/g, "");
     } else if (type === "noEnglish") {
       inputValue = inputValue.replace(/[a-zA-Z]/g, "");
     }
-    // For other types, do not filter
 
     if (maxLength && inputValue.length > maxLength) {
       inputValue = inputValue.slice(0, maxLength);
     }
 
-    onChange(inputValue);
-    if (type === "number" && formatNumberWithCommas) {
-      setDisplayValue(addCommasToNumber(inputValue));
+    if (type === "number") {
+      onChange(Number(inputValue || "0"));
+      if (formatNumberWithCommas) {
+        setDisplayValue(addCommasToNumber(inputValue));
+      } else {
+        setDisplayValue(inputValue);
+      }
     } else {
+      onChange(inputValue);
       setDisplayValue(inputValue);
     }
   };
@@ -100,7 +104,7 @@ const Input: React.FC<InputProps> = ({
         disabled={disabled}
         maxLength={maxLength}
       />
-      {(error || localError) && <span>{error || localError}</span>}
+      {error && <span>{error}</span>}
     </div>
   );
 };
