@@ -18,7 +18,7 @@ type CustomInputType =
 
 interface InputProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (value: string | number) => void;
   placeholder?: string;
   type?: CustomInputType;
   maxLength?: number;
