@@ -1,6 +1,6 @@
 {
   "name": "@mohsensami/input",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A flexible and easy-to-use React input component with built-in validation for numbers and letters, error display, and simple styling. Perfect for forms and user input scenarios.",
   "type": "module",
   "private": false,

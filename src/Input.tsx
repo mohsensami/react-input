@@ -17,7 +17,7 @@ type CustomInputType =
   | "color";
 
 interface InputProps {
-  value: string;
+  value: string | number | null | undefined;
   onChange: (value: string | number) => void;
   placeholder?: string;
   type?: CustomInputType;
@@ -41,22 +41,23 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const [displayValue, setDisplayValue] = useState<string>("");
 
-  useEffect(() => {
-    if (type === "number" && formatNumberWithCommas) {
-      const cleanValue = value.toString().replace(/[^0-9]/g, "");
-      setDisplayValue(addCommasToNumber(cleanValue));
-    } else {
-      setDisplayValue(value);
-    }
-  }, [value, type, formatNumberWithCommas]);
-
   const addCommasToNumber = (numStr: string): string => {
     if (!numStr) return "";
     return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  useEffect(() => {
+    const stringValue = value != null ? String(value) : "";
+    if (type === "number" && formatNumberWithCommas) {
+      const cleanValue = stringValue.replace(/[^0-9]/g, "");
+      setDisplayValue(addCommasToNumber(cleanValue));
+    } else {
+      setDisplayValue(stringValue);
+    }
+  }, [value, type, formatNumberWithCommas]);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let inputValue = e.target.value.replace(/,/g, "");
+    let inputValue = e.target.value.replace(/,/g, ""); // remove commas
 
     if (type === "number") {
       inputValue = inputValue.replace(/[^0-9]/g, "");
@@ -69,12 +70,11 @@ const Input: React.FC<InputProps> = ({
     }
 
     if (type === "number") {
-      onChange(Number(inputValue || "0"));
-      if (formatNumberWithCommas) {
-        setDisplayValue(addCommasToNumber(inputValue));
-      } else {
-        setDisplayValue(inputValue);
-      }
+      const numericValue = inputValue ? Number(inputValue) : "";
+      onChange(numericValue);
+      setDisplayValue(
+        formatNumberWithCommas ? addCommasToNumber(inputValue) : inputValue
+      );
     } else {
       onChange(inputValue);
       setDisplayValue(inputValue);
