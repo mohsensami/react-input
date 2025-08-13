@@ -83,6 +83,9 @@ Example (override in your own CSS):
 }
 ```
 
+## Developed by
+@mohsensami
+
 ## License
 
 This package is provided as-is, without a specific license. For questions or to request a license, please contact the author.
